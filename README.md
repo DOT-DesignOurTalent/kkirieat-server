@@ -1,15 +1,15 @@
 # kkirieat-server
 
-##Architecture
+## Architecture
 TODO
 
-##Requirements
+## Requirements
 - JAVA (JDK 15)
 - Spring Boot
 - Gradle
 - Docker
 
-##Step
+## Step
 1. 환경 설정 <br>
 kkiri-eat 사용을 위해 application.yaml에서 환경 설정을 합니다.
 2. Docker Compose 실행 <br>
