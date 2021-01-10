@@ -1,7 +1,7 @@
 # kkirieat-server
 
 ## Architecture
-TODO
+
 
 ## Requirements
 - JAVA (JDK 15)
@@ -9,15 +9,15 @@ TODO
 - Gradle
 - Docker
 
-## Step
+## Guild Line
 1. 환경 설정 <br>
-kkiri-eat 사용을 위해 application.yaml에서 환경 설정을 합니다.
-2. Docker Compose 실행 <br>
-제공되는 도커 컴포즈에는 DB(postgesql)가 세팅되어 있습니다.
+application.yaml 에서 환경 설정을 합니다.
+2. Docker 실행 <br>
+Docker Compose 에는 DB(postgesql)가 세팅되어 있습니다.
     ``` 
     $ docker-compose -f environments/docker-compose.yaml up -d
     ```
-3. 빌드 <br>
+3. Gradle 빌드 <br>
 Gradle을 이용해 프로젝트를 빌드하고 실행 가능한 Jar 파일을 생성합니다. Jar 파일은 /build/libs 폴더에 생성됩니다.
 
     ``` 
@@ -26,3 +26,8 @@ Gradle을 이용해 프로젝트를 빌드하고 실행 가능한 Jar 파일을 
     $ ./gradlew build
     $ ./gradlew bootJar
     ```
+4. API Docs 확인 <br>
+   Swagger 를 통해 Endpoint 를 확인합니다.<br>
+   http://localhost:8080/swagger-ui.html#/
+   
+   
