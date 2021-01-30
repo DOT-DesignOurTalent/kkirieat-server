@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignUpRequest {
     private String email;
-    private String password;
+    private String passphrase;
     private String nickname;
 }

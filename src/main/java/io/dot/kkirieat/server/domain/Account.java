@@ -1,11 +1,13 @@
 package io.dot.kkirieat.server.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "accounts")
@@ -21,8 +23,8 @@ public class Account {
 
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "passphrase", nullable = false)
+    private String passphrase;
     @Column(name = "nickname", nullable = false)
     private String nickname;
     @Column(name = "role", nullable = false)
@@ -34,13 +36,13 @@ public class Account {
 
     private Account(
             String email,
-            String password,
+            String passphrase,
             String nickname,
             Status status,
             Role role
     ) {
         this.email = email;
-        this.password = password;
+        this.passphrase = passphrase;
         this.nickname = nickname;
         this.status = status;
         this.role = role;
@@ -48,14 +50,14 @@ public class Account {
 
     public static Account signup(
             String email,
-            String password,
+            String passphrase,
             String nickname
     ) {
         return new Account(
                 email,
-                password,
+                passphrase,
                 nickname,
-                Status.INACTIVE,
+                Status.ACTIVE,
                 Role.GUEST
         );
     }
@@ -63,35 +65,85 @@ public class Account {
 
     private Account(
             String email,
-            String password,
+            String passphrase,
             Status status,
             Role role
     ) {
         this.email = email;
-        this.password = password;
+        this.passphrase = passphrase;
         this.status = status;
         this.role = role;
     }
 
     public static Account login(
             String email,
-            String password
+            String passphrase
     ) {
         return new Account(
                 email,
-                password,
+                passphrase,
                 Status.ACTIVE,
                 Role.GUEST
         );
     }
-
-
-
-    public enum Status {
-        ACTIVE, INACTIVE
+    public void invite(){
+        this.status = Status.INVITED;
     }
 
+
+    public boolean isInvited() {
+        return this.status.equals(Status.INVITED);
+    }
+    public boolean isActive() {
+        return this.status.equals(Status.ACTIVE);
+    }
+    public boolean isHost() {
+        return this.role.equals(Role.HOST);
+    }
+    public boolean isGuest() {
+        return this.role.equals(Role.GUEST);
+    }
+
+    @Schema(name = "AccountStatus", enumAsRef = true)
+    public enum Status {
+        INVITED("invited"),
+        ACTIVE("active"),
+        INACTIVE("inactive");
+
+        private final String name;
+
+        Status(String name) {
+            this.name = name;
+        }
+
+        public static Account.Status of(String name) {
+            return Arrays.stream(values())
+                    .filter(v -> name.equals(v.name) || name.equalsIgnoreCase(v.name))
+                    .findFirst()
+                    .orElseThrow(() ->
+                            new IllegalArgumentException(
+                                    String.format("'%s' is not supported account status", name)));
+        }
+    }
+
+    @Schema(name = "AccountRole", enumAsRef = true)
     public enum Role {
-        GUEST, HOST
+        GUEST("guest"),
+        HOST("host");
+
+        private final String name;
+
+        Role(String name) {
+            this.name = name;
+        }
+
+        public static Account.Role of(String name) {
+            return Arrays.stream(values())
+                    .filter(v -> name.equals(v.name) || name.equalsIgnoreCase(v.name))
+                    .findFirst()
+                    .orElseThrow(() ->
+                            new IllegalArgumentException(
+                                    String.format("'%s' is not supported account role", name)));
+        }
     }
 }
