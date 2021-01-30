@@ -1,12 +1,8 @@
 package io.dot.kkirieat.server.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findByFoodTags_Name(String name);
-
-    User findByIdOrElseThrow(String userId);
-    User findByEmailOrElseThrow(String email);
 }
