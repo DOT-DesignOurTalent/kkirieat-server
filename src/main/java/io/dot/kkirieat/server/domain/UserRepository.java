@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByFoodTags_Name(String name);
+
+    User findByIdOrElseThrow(String userId);
+    User findByEmailOrElseThrow(String email);
 }

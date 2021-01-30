@@ -1,4 +1,4 @@
-package io.dot.kkirieat.server.controller.error;
+package io.dot.kkirieat.server.web.error;
 
 public class ErrorResponse {
     private ErrorBody error;

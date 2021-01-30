@@ -1,4 +1,4 @@
-package io.dot.kkirieat.server.controller.error;
+package io.dot.kkirieat.server.web.error;
 
 import io.dot.kkirieat.server.domain.exception.AuthenticationException;
 import io.dot.kkirieat.server.domain.exception.BadRequestException;

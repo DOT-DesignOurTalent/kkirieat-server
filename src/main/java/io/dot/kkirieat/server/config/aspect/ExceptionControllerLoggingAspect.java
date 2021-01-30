@@ -26,7 +26,7 @@ public class ExceptionControllerLoggingAspect {
         this.ignoringEndpoints = ignoringEndpoints;
     }
 
-    @Before("execution(* io.dot.kkirieat.server.controller.error.DefaultExceptionHandler.*(..))")
+    @Before("execution(* io.dot.kkirieat.server.web.error.DefaultExceptionHandler.*(..))")
     public void beforeGlobalExceptionHandler(JoinPoint joinPoint) throws IOException {
         String controllerName = joinPoint.getTarget().getClass().getSimpleName();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
