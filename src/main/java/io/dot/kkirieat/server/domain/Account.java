@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private User(
+    private Account(
             String email,
             String password,
             String nickname,
@@ -45,12 +43,12 @@ public class User {
         this.role = role;
     }
 
-    public static User signup(
+    public static Account signup(
             String email,
             String password,
             String nickname
     ) {
-        return new User(
+        return new Account(
                 email,
                 password,
                 nickname,
@@ -60,7 +58,7 @@ public class User {
     }
 
 
-    private User(
+    private Account(
             String email,
             String password,
             Status status,
@@ -72,11 +70,11 @@ public class User {
         this.role = role;
     }
 
-    public static User login(
+    public static Account login(
             String email,
             String password
     ) {
-        return new User(
+        return new Account(
                 email,
                 password,
                 Status.ACTIVE,

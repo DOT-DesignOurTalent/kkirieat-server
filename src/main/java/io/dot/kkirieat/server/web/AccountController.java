@@ -1,31 +1,34 @@
 package io.dot.kkirieat.server.web;
 
-import io.dot.kkirieat.server.application.UserService;
+import io.dot.kkirieat.server.application.AccountService;
 import io.dot.kkirieat.server.application.dto.LoginRequest;
 import io.dot.kkirieat.server.application.dto.SignUpRequest;
 import io.dot.kkirieat.server.application.dto.SignUpResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
-public class UserController {
+@RequestMapping("/api/v1/user")
+public class AccountController {
 
-    private final UserService userService;
+    private final AccountService accountService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SignUpResponse signUp(@RequestBody final SignUpRequest request) {
-        return userService.signUp(request);
+        return accountService.signUp(request);
     }
 
     @PostMapping("/login")
     @ResponseStatus(value = HttpStatus.OK)
     public void login(@RequestBody final LoginRequest request) {
-        userService.login(request);
+        accountService.login(request);
     }
 
 }

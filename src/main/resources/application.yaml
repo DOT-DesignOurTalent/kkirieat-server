@@ -1,7 +1,7 @@
 
 app:
   kkirieat:
-    url: http://localhost:8000
+    url: http://localhost:8080
 
 server:
   port: 8080
@@ -23,7 +23,7 @@ spring:
         stringtype: unspecified
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect

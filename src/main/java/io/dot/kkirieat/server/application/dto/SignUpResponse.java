@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignUpResponse {
     private String nickname;
-
     private SignUpResponse(String nickname){
         this.nickname = nickname;
     }
-
     public static SignUpResponse of(String nickname){
         return new SignUpResponse(nickname);
     }
