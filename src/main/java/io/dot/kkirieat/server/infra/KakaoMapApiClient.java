@@ -10,7 +10,7 @@ public class KakaoMapApiClient implements KakaoMapClient {
 
     public KakaoMapApiClient(
             RestTemplate restTemplate
-    ){
+    ) {
         this.restTemplate = restTemplate;
     }
 

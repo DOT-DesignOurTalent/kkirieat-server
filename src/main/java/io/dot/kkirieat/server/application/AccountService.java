@@ -9,17 +9,19 @@ import io.dot.kkirieat.server.domain.PassphraseEncoder;
 import io.dot.kkirieat.server.domain.PassphraseVerifier;
 import io.dot.kkirieat.server.domain.exception.BadRequestException;
 import io.dot.kkirieat.server.domain.exception.ErrorCode;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 
+@Qualifier("accountService")
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
     private final PassphraseEncoder passphraseEncoder;
     private final PassphraseVerifier passphraseVerifier;
 
-    public AccountService (
+    public AccountService(
             AccountRepository accountRepository,
             PassphraseEncoder passphraseEncoder,
             PassphraseVerifier passphraseVerifier
@@ -30,18 +32,18 @@ public class AccountService {
     }
 
     @Transactional
-    public SignUpResponse signUp(SignUpRequest request){
+    public SignUpResponse signUp(SignUpRequest request) {
         accountRepository.save(
                 Account.signup(
-                    request.getEmail(),
-                    this.passphraseEncoder.encode(request.getPassphrase()),
-                    request.getNickname())
+                        request.getEmail(),
+                        this.passphraseEncoder.encode(request.getPassphrase()),
+                        request.getNickname())
         );
         return SignUpResponse.of(request.getNickname());
     }
 
     @Transactional
-    public void login(LoginRequest request){
+    public void login(LoginRequest request) {
         String email = request.getEmail();
         Account account = accountRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new BadRequestException(String.format("user email '%s' does not exist", email), ErrorCode.EMAIL_DOES_NOT_EXIST));

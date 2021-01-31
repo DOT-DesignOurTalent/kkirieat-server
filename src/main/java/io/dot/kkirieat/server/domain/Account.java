@@ -48,6 +48,18 @@ public class Account {
         this.role = role;
     }
 
+    private Account(
+            String email,
+            String passphrase,
+            Status status,
+            Role role
+    ) {
+        this.email = email;
+        this.passphrase = passphrase;
+        this.status = status;
+        this.role = role;
+    }
+
     public static Account signup(
             String email,
             String passphrase,
@@ -62,19 +74,6 @@ public class Account {
         );
     }
 
-
-    private Account(
-            String email,
-            String passphrase,
-            Status status,
-            Role role
-    ) {
-        this.email = email;
-        this.passphrase = passphrase;
-        this.status = status;
-        this.role = role;
-    }
-
     public static Account login(
             String email,
             String passphrase
@@ -86,7 +85,8 @@ public class Account {
                 Role.GUEST
         );
     }
-    public void invite(){
+
+    public void invite() {
         this.status = Status.INVITED;
     }
 
@@ -94,12 +94,15 @@ public class Account {
     public boolean isInvited() {
         return this.status.equals(Status.INVITED);
     }
+
     public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
+
     public boolean isHost() {
         return this.role.equals(Role.HOST);
     }
+
     public boolean isGuest() {
         return this.role.equals(Role.GUEST);
     }
